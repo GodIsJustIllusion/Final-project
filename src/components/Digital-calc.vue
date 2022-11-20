@@ -1,64 +1,42 @@
 <template>
   <h2>Цифровой калькулятор</h2>
 
-
   <section>
-    <input type="number" name="" id="numberOfProduct" required>
     <label for="numberOfProduct">Тираж</label>
+    <input type="text" name="" id="numberOfProduct" pattern="^[ 0-9]+$" required>
   </section>
 
   <section>
-    <input list="chromaticity">
-    <datalist id="chromaticity">
-      <option>4+0</option>
-      <option>4+4</option>
-      <option>1+0</option>
-      <option>1+1</option>
-      <option>4+1</option>
-    </datalist>
     <label for="chromaticity">Цветность</label>
+    <select id="chromaticity">
+      <option selected>Выбери цветность</option>
+      <option v-for="(ch, id) in paperBase.data.chromaticity" v-bind:key="id">{{ ch.name }}</option>
+    </select>
   </section>
 
   <section>
-    <input list="paper">
-    <datalist id="paper">
-      <option v-for="pap in paperBase" v-bind:key="pap">Аперитивы</option>
-      <option>Горячие</option>
-      <option>Десертные</option>
-      <option>Диджестивы</option>
-      <option>Молочные</option>
-      <option>Слоистые</option>
-    </datalist>
-    <label for="paper">Кол-во листов</label>
+    <label for="paper">Выбери бумагу</label>
+    <select id="paper">
+      <option selected>Выбери бумагу</option>
+      <option v-for="(p, id) in paperBase.data.paper" v-bind:key="id">{{ p.name }}</option>
+    </select>
+<!--    <p v-if="p.balance < paper.value">Бумаги не хватает. Не забудь заказать</p>-->
+    <input name="paper" pattern="^[ 0-9]+$">
   </section>
 
   <section>
-    <input list="paper">
-    <datalist id="paper">
-      <option>Аперитивы</option>
-      <option>Горячие</option>
-      <option>Десертные</option>
-      <option>Диджестивы</option>
-      <option>Молочные</option>
-      <option>Слоистые</option>
-    </datalist>
-    <label for="paper">Кол-во листов</label>
+    <label for="material">Выбери материал</label>
+    <select id="material">
+      <option selected>Выбери материал</option>
+      <option v-for="(m, id) in paperBase.data.materials" v-bind:key="id">{{ m.name }}</option>
+    </select>
+    <input name="materials" pattern="^[ 0-9]+$">
   </section>
 
-  <section>
-    <input list="material">
-    <datalist id="material">
-      <option>Ламинация</option>
-      <option>Пружина</option>
-      <option>Винт</option>
-      <option>Ламинация</option>
-      <option>Пружина</option>
-      <option>Винт</option>
-    </datalist>
-    <label for="material">Кол-во материала</label>
-  </section>
-
-  <p>{{ paperBase }}</p>
+  <p>Бумага: {{ paperBase.data.paper }}</p>
+  <p>Материал: {{ paperBase.data.materials }}</p>
+  <p>Рулонный материал:{{ paperBase.data.scroll_material }}</p>
+  <p>Работы: {{ paperBase.data.jobs }}</p>
 
 </template>
 
@@ -71,6 +49,9 @@ export default {
     return {
       paperBase
     }
+  },
+  created() {
+    paperBase.getListPaper()
   }
 }
 </script>
