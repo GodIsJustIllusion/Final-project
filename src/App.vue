@@ -15,7 +15,9 @@
       <router-view></router-view>
     </div>
 
-    <footer class="footer">Подвал сайта</footer>
+    <footer class="footer">
+      <h3>Когда-нибудь здесь будет подвал приложения, но это уже совсем другая история...</h3>
+    </footer>
   </div>
 </template>
 
@@ -30,6 +32,10 @@ export default {
 <style scoped>
   .container {
     padding: 0 70px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
   }
 
   .header {

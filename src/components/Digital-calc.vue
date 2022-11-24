@@ -3,7 +3,7 @@
 
   <section>
     <label for="numberOfProduct">Тираж</label>
-    <input type="text" name="" id="numberOfProduct" pattern="^[ 0-9]+$" required>
+    <input type="text" name="numberOfProduct" id="numberOfProduct" pattern="^[ 0-9]+$" required>
   </section>
 
   <section>
@@ -16,22 +16,57 @@
 
   <section>
     <label for="paper">Выбери бумагу</label>
-    <select id="paper">
-      <option selected>Выбери бумагу</option>
-      <option v-for="(p, id) in paperBase.data.paper" v-bind:key="id">{{ p.name }}</option>
-    </select>
-<!--    <p v-if="p.balance < paper.value">Бумаги не хватает. Не забудь заказать</p>-->
-    <input name="paper" pattern="^[ 0-9]+$">
+    <input list="paper">
+    <datalist id="paper">
+      <option id="paperItem" v-for="(item, index) in paperBase.data.paper" v-bind:key="index">{{ item.name }} {{ item.index }}
+        <input name="paper" pattern="^[ 0-9]+$" v-model="amountPaper">
+      </option>
+    </datalist>
+    <input name="paper" pattern="^[ 0-9]+$" v-model="amountPaper">
+    <p v-if="createElem">Бумаги не хватает. Не забудь заказать</p>
   </section>
 
   <section>
     <label for="material">Выбери материал</label>
-    <select id="material">
-      <option selected>Выбери материал</option>
+    <input list="material">
+    <datalist id="material">
       <option v-for="(m, id) in paperBase.data.materials" v-bind:key="id">{{ m.name }}</option>
-    </select>
+    </datalist>
     <input name="materials" pattern="^[ 0-9]+$">
   </section>
+
+  <section>
+    <label for="jobs">Постпечатные работы:</label>
+    <br>
+    <input list="jobs">
+    <datalist id="jobs">
+      <option v-for="(j, id) in paperBase.data.jobs" v-bind:key="id">{{ j.name }}</option>
+    </datalist>
+    <input name="jobs" pattern="^[ 0-9]+$">
+    <br>
+    <input list="jobs">
+    <datalist id="jobs">
+      <option v-for="(j, id) in paperBase.data.jobs" v-bind:key="id">{{ j.name }}</option>
+    </datalist>
+    <input name="jobs" pattern="^[ 0-9]+$">
+    <br>
+    <input list="jobs">
+    <datalist id="jobs">
+      <option v-for="(j, id) in paperBase.data.jobs" v-bind:key="id">{{ j.name }}</option>
+    </datalist>
+    <input name="jobs" pattern="^[ 0-9]+$">
+    <br>
+    <input list="jobs">
+    <datalist id="jobs">
+      <option v-for="(j, id) in paperBase.data.jobs" v-bind:key="id">{{ j.name }}</option>
+    </datalist>
+    <input name="jobs" pattern="^[ 0-9]+$">
+  </section>
+
+  <button type="button" class="btn" @click="some()">Посчитать</button>
+  <button type="button" class="btn">Передать в график</button>
+
+  <h3>Общая стоимость: {{ totalCount }} руб. Цена за штуку: {{ countPerOne }} руб.</h3>
 
   <p>Бумага: {{ paperBase.data.paper }}</p>
   <p>Материал: {{ paperBase.data.materials }}</p>
@@ -43,15 +78,32 @@
 <script>
 import { paperBase } from "@/Paper-fetch"
 
+// const code = document.getElementById(paperItem);
+
 export default {
   name: "Digital-calc",
   data () {
     return {
-      paperBase
+      paperBase,
+      amountPaper:'',
+      totalCount: 10,
+      countPerOne: 0,
+      countedData: {}
     }
   },
   created() {
     paperBase.getListPaper()
+  },
+  methods: {
+    some() {
+      console.log(this.totalCount += 1)
+    }
+  },
+
+  computed: {
+    createElem() {
+      return this.paperBase.data.paper[2].balance < this.amountPaper;
+    }
   }
 }
 </script>
