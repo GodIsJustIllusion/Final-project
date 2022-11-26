@@ -3,6 +3,7 @@ import HomePage from "@/components/Home-page";
 import DigitalCalc from "@/components/Digital-calc";
 import OffsetCalc from "@/components/Offset-calc";
 import InteriorCalc from "@/components/Interior-calc";
+import Schedule from "@/components/Schedule";
 
 const isServer = typeof window === 'undefined';
 const history = isServer ? createMemoryHistory() : createWebHistory();
@@ -26,6 +27,11 @@ const routes = [
         path: '/interior-calc',
         name: 'Interior calc',
         component: InteriorCalc,
+    },
+    {
+        path: '/schedule',
+        name: 'Schedule-page',
+        component: Schedule,
     }
 ];
 

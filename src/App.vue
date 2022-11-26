@@ -7,6 +7,7 @@
         <router-link to="/digital-calc" class="nav-item">Цифровой</router-link>
         <router-link to="/offset-calc" class="nav-item">Офсетный</router-link>
         <router-link to="/interior-calc" class="nav-item">Интерьерный</router-link>
+        <router-link to="/schedule" class="nav-item">График заказов</router-link>
       </div>
     </header>
 
